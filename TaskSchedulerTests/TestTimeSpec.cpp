@@ -44,7 +44,7 @@ namespace TaskSchedulerTests
 
 		TEST_METHOD(FormatDateStringDateAndTime)
 		{
-			DateSpec date(2018, 1, 14);
+			DateSpec date(2018, 0, 13);
 			TimeSpec time(13, 5, 33);
 			wchar_t buffer[DATE_FORMAT_STRING_SIZE];
 

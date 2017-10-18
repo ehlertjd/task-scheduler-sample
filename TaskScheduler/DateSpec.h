@@ -101,6 +101,30 @@ namespace task_scheduler {
 	};
 
 	static const size_t DATE_FORMAT_STRING_SIZE = 20;
+	/**
+	 * Format a date (and optional time spec) into the given buffer.
+	 * Uses the format: YYYY-MM-DDTHH:MM:SS.
+	 * @param dst The destination buffer, must be at least DATE_FORMAT_STRING_SIZE characters.
+	 * @param dstSize The destination size, in number of characters.
+	 * @param date The date spec
+	 * @param time The optional time spec
+	 * @returns True if the date was formatted successfully.
+	 */
 	TASKSCHEDULER_EXPORT bool FormatDateString(wchar_t *dst, size_t dstSize, const DateSpec &date, const TimeSpec &time = TimeSpec());
 
+	/**
+	 * Parse a string in the format of: YYYY/MM/DD into a DateSpec object.
+	 * @param dst [out] The date spec to update.
+	 * @param str The input string, must be null-terminated.
+	 * @return True if the string was parsed successfully, false otherwise
+	 */
+	TASKSCHEDULER_EXPORT bool ParseDateString(DateSpec &dst, const wchar_t *str);
+
+	/**
+	* Parse a string in the format of: HH:MM::SS into a TimeSpec object.
+	* @param dst [out] The time spec to update.
+	* @param str The input string, must be null-terminated.
+	* @return True if the string was parsed successfully, false otherwise
+	*/
+	TASKSCHEDULER_EXPORT bool ParseTimeString(TimeSpec &dst, const wchar_t *str);
 }

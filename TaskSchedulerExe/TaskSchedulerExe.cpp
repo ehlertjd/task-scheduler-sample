@@ -8,7 +8,13 @@ using namespace task_scheduler;
 static const wchar_t TEST_TASK_NAME[] = L"TEST_TASK";
 static const wchar_t TEST_EVENT_NAME[] = L"Global\\TASK_SCHEDULER_TEST_EVENT";
 
-static void PrintUsage(int argc, const wchar_t **argv) {
+static int ScheduleTask(int argc, const wchar_t **argv);
+static int DeleteTask(int argc, const wchar_t **argv);
+static int RunTest(int argc, const wchar_t **argv);
+static int SignalEvent();
+
+static void PrintUsage(int argc, const wchar_t **argv) 
+{
 	const wchar_t *exeName = L"TaskScheduler";
 	if (argc >= 1 && argv && argv[0]) {
 		exeName = argv[0];
@@ -28,12 +34,8 @@ static void PrintUsage(int argc, const wchar_t **argv) {
 	printf("\ttest - Test scheduling a task and verifying execution\n\n");
 }
 
-static int ScheduleTask(int argc, const wchar_t **argv);
-static int DeleteTask(int argc, const wchar_t **argv);
-static int RunTest(int argc, const wchar_t **argv);
-static int SignalEvent();
-
-int wmain(int argc, const wchar_t **argv) {
+int wmain(int argc, const wchar_t **argv) 
+{
 	// TODO: Parse args
 	if (argc < 2) {
 		PrintUsage(argc, argv);
@@ -58,17 +60,93 @@ int wmain(int argc, const wchar_t **argv) {
 	return 1;
 }
 
-static int ScheduleTask(int argc, const wchar_t **argv) {
-	// TODO: Support
-	return 10;
+static int ScheduleTask(int argc, const wchar_t **argv) 
+{
+	// Parse arguments
+	std::wstring taskName, startDateStr, endDateStr, timeStr, exePath;
+
+	// Parse out arguments
+	if (argc > 2) {
+		taskName = argv[2];
+	}
+
+	for (int i = 3; i < (argc-1); i+=2) {
+		std::wstring arg = argv[i];
+		if (L"/ST" == arg) {
+			startDateStr = argv[i + 1];
+		} else if (L"/ET" == arg) {
+			endDateStr = argv[i + 1];
+		} else if (L"/T" == arg) {
+			timeStr = argv[i + 1];
+		} else if (L"/EXE" == arg) {
+			exePath = argv[i + 1];
+		} else {
+			PrintUsage(argc, argv);
+			printf("Unknown argument: %S\n", argv[i]);
+			return 1;
+		}
+	}
+
+	// Now validate arguments
+	if (taskName.empty() || taskName[0] == L'/') {
+		PrintUsage(argc, argv);
+		printf("Invalid Task Name: %S\n", taskName.c_str());
+		return 1;
+	}
+
+	if (exePath.empty()) {
+		PrintUsage(argc, argv);
+		printf("Executable path is required!\n");
+		return 1;
+	}
+
+	DateSpec startDate, endDate;
+	TimeSpec timeOfDay;
+
+	if (!ParseDateString(startDate, startDateStr.c_str())) {
+		PrintUsage(argc, argv);
+		printf("Invalid start date, expected YYYY/MM/DD\n");
+		return 1;
+	}
+
+	if (!ParseTimeString(timeOfDay, timeStr.c_str())) {
+		PrintUsage(argc, argv);
+		printf("Invalid time, expected HH:MM:SS\n");
+		return 1;
+	}
+
+	ParseDateString(endDate, endDateStr.c_str());
+	
+	ScheduleTaskResult result = ScheduleDailyExecutableTask(taskName.c_str(), 
+		startDate, endDate, timeOfDay, exePath.c_str(), NULL, 0);
+	if (result == SCHEDULE_TASK_ERROR) {
+		printf("Unable to schedule task!\n");
+		return 10;
+	}
+
+	printf("The task %S has been created\n", taskName.c_str());
+	return 0;
 }
 
-static int DeleteTask(int argc, const wchar_t **argv) {
-	// TODO: Support
-	return 10;
+static int DeleteTask(int argc, const wchar_t **argv) 
+{
+	if (argc < 3) {
+		// No task name
+		PrintUsage(argc, argv);
+		return 1;
+	}
+
+	if (DeleteTask(argv[2])) {
+		printf("Deleted %S\n", argv[2]);
+		return 0;
+	} else {
+		printf("Couldn't delete %S - maybe it doesn't exist?\n", argv[2]);
+		return 10;
+	}
 }
 
-static void CurrentTimeToTimeSpec(DateSpec &date, TimeSpec &time, int32_t addSeconds = 0) {
+static void CurrentTimeToTimeSpec(DateSpec &date, TimeSpec &time, int32_t addSeconds = 0) 
+{
 	// Get current time (adjusting as specified)
 	time_t currentTime = ::time(NULL);
 	currentTime += addSeconds;
@@ -145,7 +223,8 @@ static int RunTest(int argc, const wchar_t **argv)
 	return success ? 0 : 100;
 }
 
-static int SignalEvent() {
+static int SignalEvent() 
+{
 	HANDLE hEvent = OpenEvent(EVENT_MODIFY_STATE, FALSE, TEST_EVENT_NAME);
 	if (hEvent == NULL) {
 		printf("Could not open event for signaling: %x!\n", GetLastError());

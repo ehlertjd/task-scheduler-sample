@@ -68,18 +68,52 @@ namespace task_scheduler {
 		return thisTime - rhsTime;
 	}
 
-	TASKSCHEDULER_EXPORT bool FormatDateString(wchar_t *dst, size_t dstSize, const DateSpec &date, const TimeSpec &time) {
+	TASKSCHEDULER_EXPORT bool FormatDateString(wchar_t *dst, size_t dstSize, const DateSpec &date, const TimeSpec &time) 
+	{
 		if (!dst || dstSize < DATE_FORMAT_STRING_SIZE) {
 			return false;
 		}
 		
 		int ret = _snwprintf_s(dst, dstSize, DATE_FORMAT_STRING_SIZE, L"%04hu-%02hhu-%02hhuT%02hhu:%02hhu:%02hhu",
-			date.GetYear(), date.GetMonth(), date.GetDay(),
+			date.GetYear(), date.GetMonth()+1, date.GetDay()+1,
 			time.GetHour(), time.GetMinute(), time.GetSecond());
 		if (ret == -1) {
 			return false;
 		}
 
+		return true;
+	}
+
+	TASKSCHEDULER_EXPORT bool ParseDateString(DateSpec &dst, const wchar_t *str)
+	{
+		uint16_t year;
+		uint8_t month, day;
+		if (!str) {
+			return false;
+		}
+		int ret = swscanf_s(str, L"%hu/%hhu/%hhu", &year, &month, &day);
+		if (ret != 3) {
+			return false;
+		}
+		if (year < 1970) {
+			return false;
+		}
+
+		dst = DateSpec(year, month-1, day-1);
+		return true;
+	}
+
+	TASKSCHEDULER_EXPORT bool ParseTimeString(TimeSpec &dst, const wchar_t *str)
+	{
+		uint8_t hours, minutes, seconds;
+		if (!str) {
+			return false;
+		}
+		int ret = swscanf_s(str, L"%hhu:%hhu:%hhu", &hours, &minutes, &seconds);
+		if (ret != 3) {
+			return false;
+		}
+		dst = TimeSpec(hours, minutes, seconds);
 		return true;
 	}
 
