@@ -68,4 +68,19 @@ namespace task_scheduler {
 		return thisTime - rhsTime;
 	}
 
+	TASKSCHEDULER_EXPORT bool FormatDateString(wchar_t *dst, size_t dstSize, const DateSpec &date, const TimeSpec &time) {
+		if (!dst || dstSize < DATE_FORMAT_STRING_SIZE) {
+			return false;
+		}
+		
+		int ret = _snwprintf_s(dst, dstSize, DATE_FORMAT_STRING_SIZE, L"%04hu-%02hhu-%02hhuT%02hhu:%02hhu:%02hhu",
+			date.GetYear(), date.GetMonth(), date.GetDay(),
+			time.GetHour(), time.GetMinute(), time.GetSecond());
+		if (ret == -1) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

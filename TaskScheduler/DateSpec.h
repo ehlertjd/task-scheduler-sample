@@ -100,4 +100,7 @@ namespace task_scheduler {
 		int32_t operator-(const TimeSpec &rhs) const;
 	};
 
+	static const size_t DATE_FORMAT_STRING_SIZE = 20;
+	TASKSCHEDULER_EXPORT bool FormatDateString(wchar_t *dst, size_t dstSize, const DateSpec &date, const TimeSpec &time = TimeSpec());
+
 }
