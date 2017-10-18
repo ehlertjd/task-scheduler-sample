@@ -86,10 +86,7 @@ namespace task_scheduler {
 		}
 
 		// Delete the existing task, if it exists
-		hr = pTaskFolder->DeleteTask(_bstr_t(taskName), 0);
-		if (FAILED(hr)) {
-			printf("Warning: could not delete existing task: %x\n", hr);
-		}
+		pTaskFolder->DeleteTask(_bstr_t(taskName), 0);
 
 		// Create and configure the task to run daily
 		CComPtr<ITaskDefinition> pTask;
@@ -145,6 +142,32 @@ namespace task_scheduler {
 		}
 
 		return true;
+	}
+
+	TASKSCHEDULER_EXPORT bool TaskExists(const wchar_t *taskName) {
+		// Initialize COM & Set security levels
+		// This will automatically uninitialize when we exit the function
+		ComInitialize comInit;
+		if (FAILED(comInit.initResult)) {
+			return false;
+		}
+
+		CComPtr<ITaskService> pTaskSvc;
+		CComPtr<ITaskFolder> pTaskFolder;
+
+		// Init service & root folder
+		HRESULT hr = InitTaskServiceAndRootFolder(pTaskSvc, pTaskFolder);
+		if (FAILED(hr)) {
+			return false;
+		}
+
+		CComPtr<IRegisteredTask> pTask;
+		hr = pTaskFolder->GetTask(_bstr_t(taskName), &pTask);
+		if (FAILED(hr)) {
+			return false;
+		}
+
+		return !!pTask;
 	}
 
 	// ===== Helper Functions =====

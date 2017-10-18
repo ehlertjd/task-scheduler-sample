@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <windows.h>
+#include <sddl.h>
 
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
 

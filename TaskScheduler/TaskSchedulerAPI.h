@@ -41,5 +41,10 @@ namespace task_scheduler {
 	 */
 	TASKSCHEDULER_EXPORT bool DeleteTask(const wchar_t *taskName);
 
+	/**
+	 * Test if a task exists
+	 */
+	TASKSCHEDULER_EXPORT bool TaskExists(const wchar_t *taskName);
+
 }
 
