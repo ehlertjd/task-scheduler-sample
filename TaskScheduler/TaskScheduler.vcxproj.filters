@@ -33,6 +33,12 @@
     <ClInclude Include="DateSpec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TaskSchedulerSupport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComInitialize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +51,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DateSpec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskSchedulerSupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ComInitialize.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -153,13 +153,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComInitialize.h" />
     <ClInclude Include="DateSpec.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TaskSchedulerAPI.h" />
     <ClInclude Include="TaskSchedulerExports.h" />
+    <ClInclude Include="TaskSchedulerSupport.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ComInitialize.cpp" />
     <ClCompile Include="DateSpec.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -182,6 +185,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TaskScheduler.cpp" />
+    <ClCompile Include="TaskSchedulerSupport.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
