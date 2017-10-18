@@ -161,6 +161,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TestDateSpec.cpp" />
+    <ClCompile Include="TestTimeSpec.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TaskScheduler\TaskScheduler.vcxproj">
