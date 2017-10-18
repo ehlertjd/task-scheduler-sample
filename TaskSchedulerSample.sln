@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskScheduler", "TaskScheduler\TaskScheduler.vcxproj", "{021834BF-1BE4-4B9A-BC75-88AC334D3917}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskSchedulerExe", "TaskSchedulerExe\TaskSchedulerExe.vcxproj", "{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917} = {021834BF-1BE4-4B9A-BC75-88AC334D3917}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskSchedulerTests", "TaskSchedulerTests\TaskSchedulerTests.vcxproj", "{B211789F-0E3C-427C-AC7C-236A9D84E92C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Debug|x64.ActiveCfg = Debug|x64
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Debug|x64.Build.0 = Debug|x64
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Debug|x86.ActiveCfg = Debug|Win32
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Debug|x86.Build.0 = Debug|Win32
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Release|x64.ActiveCfg = Release|x64
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Release|x64.Build.0 = Release|x64
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Release|x86.ActiveCfg = Release|Win32
+		{021834BF-1BE4-4B9A-BC75-88AC334D3917}.Release|x86.Build.0 = Release|Win32
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Debug|x64.ActiveCfg = Debug|x64
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Debug|x64.Build.0 = Debug|x64
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Debug|x86.ActiveCfg = Debug|Win32
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Debug|x86.Build.0 = Debug|Win32
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Release|x64.ActiveCfg = Release|x64
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Release|x64.Build.0 = Release|x64
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Release|x86.ActiveCfg = Release|Win32
+		{BD5A3DAC-9784-4A1F-B69B-B3D5E0F3D0DD}.Release|x86.Build.0 = Release|Win32
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Debug|x64.ActiveCfg = Debug|x64
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Debug|x64.Build.0 = Debug|x64
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Debug|x86.ActiveCfg = Debug|Win32
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Debug|x86.Build.0 = Debug|Win32
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Release|x64.ActiveCfg = Release|x64
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Release|x64.Build.0 = Release|x64
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Release|x86.ActiveCfg = Release|Win32
+		{B211789F-0E3C-427C-AC7C-236A9D84E92C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
